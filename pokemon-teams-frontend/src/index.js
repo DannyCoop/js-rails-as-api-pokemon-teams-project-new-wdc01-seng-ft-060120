@@ -36,12 +36,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let teamList = document.createElement('ul')
         div.appendChild(teamList)
+        
+        
+        for(const pokemon of trainer.pokemons) {
+            let li = document.createElement('li')
+            let speciesAndNickname = `${pokemon.species}, ${pokemon.nickname}`
+            li.innerText = speciesAndNickname;
 
-        // for(const name in trainer.pokemons) {
-        //     console.log(`${name}: ${trainer.pokemons[name]}`)
-        // }
+            let button = document.createElement('button')
+            button.classNme = 'release'
+            button.dataset.pokemonId = pokemon.id;
+            li.appendChild(button)
+            teamList.appendChild(li)
 
-        console.log(trainer)
+
+        }
+
 
 
 
