@@ -29,10 +29,32 @@ document.addEventListener("DOMContentLoaded", () => {
         p.innerText = trainer.name;
         div.appendChild(p)
         
-        let button = document.createElement('button')
-        button.dataset.trainerId = trainer.id
-        button.innerText = 'Add Pokemon'
-        div.appendChild(button)
+        let addButton = document.createElement('button')
+        addButton.dataset.trainerId = trainer.id
+        addButton.innerText = 'Add Pokemon'
+        div.appendChild(addButton)
+
+        addButton.addEventListener('click', (e) => {
+           let config = {
+               method: 'POST',
+               headers: {
+                'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+                   'trainer_id': trainer.id  
+               })
+           }
+           fetch(POKEMONS_URL, config)
+           .then(res => res.json())
+           .then(data => {console.log(data)})
+           
+           
+            //  if (teamList.childElementCount < 6) {
+            //      addButton.disabled = false;
+            //      console.log('hello')
+            //  }
+            // console.log(teamList.childElementCount)
+        })
 
         let teamList = document.createElement('ul')
         div.appendChild(teamList)
@@ -43,18 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
             let speciesAndNickname = `${pokemon.species}, ${pokemon.nickname}`
             li.innerText = speciesAndNickname;
 
-            let button = document.createElement('button')
-            button.classNme = 'release'
-            button.dataset.pokemonId = pokemon.id;
-            li.appendChild(button)
+            let releaseButton = document.createElement('button')
+            releaseButton.className = 'release'
+            releaseButton.innerText = 'Release'
+            releaseButton.dataset.pokemonId = pokemon.id;
+            li.appendChild(releaseButton)
             teamList.appendChild(li)
-
-
         }
-
-
-
-
     }
 
     getTrainers()
